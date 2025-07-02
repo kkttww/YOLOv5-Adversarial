@@ -4,3 +4,5 @@ conda env create -f environment_gpu.yml
 
 conda activate adv_gpu
 python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt
+
+python detect.py --model mode/yolov3-tiny.h5 --class_name coco_classes.txt --attack multi_targeted --fixed_area 100,100,100,100 --max_iter 100
