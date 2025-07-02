@@ -5,7 +5,7 @@ from keras.models import load_model
 from yolov3 import yolo_process_output, yolov3_tiny_anchors
 
 class AdversarialDetection:
-    def __init__(self, model, attack_type, monochrome, classes, xi=8/255.0, lr= 1 /255.0):
+    def __init__(self, model, attack_type, monochrome, classes, xi=8/255.0, lr= 1 /255.0, fixed_area=None, max_iterations=20):
         import tensorflow as tf
         tf.compat.v1.disable_eager_execution()
         import keras.backend as K
@@ -67,9 +67,8 @@ class AdversarialDetection:
 
     def attack(self, input_cv_image):
         with self.graph.as_default():
-
-            if self.attack_active == False:
-                # Before attack, get original detection count
+            # Before attack, get original detection count
+            if not self.attack_active:
                 original_output = self.sess.run(self.model.output, 
                                             feed_dict={self.model.input: np.array([input_cv_image])})
                 boxes, _, _ = yolo_process_output(original_output, yolov3_tiny_anchors, self.num_classes)
@@ -77,7 +76,7 @@ class AdversarialDetection:
 
             # Draw each adversarial patch on the input image
             for box in self.adv_patch_boxes:
-                self.attack_active = True
+                # Apply same noise to all channels
                 if self.monochrome:
                     input_cv_image[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), 0] += self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2])]
                     input_cv_image[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), 1] += self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2])]
@@ -86,6 +85,8 @@ class AdversarialDetection:
                     input_cv_image[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :] += self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :]
 
                 if(len(self.adv_patch_boxes) > 0 and (not self.fixed)):
+                    self.iter += 1
+                    self.attack_active = True  # Mark the attack as active
                     grads = self.sess.run(self.delta, feed_dict={self.model.input:np.array([input_cv_image])})
                     if self.monochrome:
                         # For monochrome images, we average the gradients over RGB channels
@@ -96,9 +97,11 @@ class AdversarialDetection:
                         self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2])] += self.lr * grads[0, :, :, 2][box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2])]
                     else:
                         self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :] += self.lr * grads[0, :, :, :][box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :]
-
+                    
+                    # Clip the noise to ensure it stays within the bounds
                     self.noise = np.clip(self.noise, -self.xi, self.xi)
-
+            
+            # Ensure the input image is within the valid range
             input_cv_image = np.clip(input_cv_image, 0.0, 1.0)
 
             # Get adversarial output
@@ -112,10 +115,6 @@ class AdversarialDetection:
             if self.original_boxes_count > 0:
                 percentage_increase = ((self.current_boxes_count - self.original_boxes_count) / 
                                     self.original_boxes_count) * 100
-            
-            # Increment iteration counter if attack is active
-            if not self.fixed:
-                self.iter += 1
                 
             return input_cv_image, adv_output, {
                 'attack_type': self.attack_type,

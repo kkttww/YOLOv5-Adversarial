@@ -121,7 +121,7 @@ def add_patch(sid, data):
     else:
         adv_detect.adv_patch_boxes[data[0]] = box
 
-# Detetion thread
+# Detection thread
 def adversarial_detection_thread():  
     global sio, adv_detect, camera
     colors = np.random.uniform(0, 255, size=(len(classes), 3))
