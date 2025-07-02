@@ -164,6 +164,7 @@ def adversarial_detection_thread():
 
         # Send statistics to the frontend
         sio.emit('stats', {
+            'attack_type': stats['attack_type'],
             'original_boxes': stats['original_boxes'],
             'current_boxes': stats['current_boxes'],
             'percentage_increase': stats['percentage_increase'],

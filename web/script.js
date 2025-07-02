@@ -12,6 +12,7 @@ socket.on('adv', function (data) {
 });
 
 socket.on('stats', function (data) {
+    $('#attackType').text(data.attack_type);
     $('#originalBoxes').text(data.original_boxes);
     $('#currentBoxes').text(data.current_boxes);
     $('#percentageIncrease').text(data.percentage_increase.toFixed(2) + '%');

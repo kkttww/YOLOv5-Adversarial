@@ -118,6 +118,7 @@ class AdversarialDetection:
                 self.iter += 1
                 
             return input_cv_image, adv_output, {
+                'attack_type': self.attack_type,
                 'original_boxes': self.original_boxes_count,
                 'current_boxes': self.current_boxes_count,
                 'percentage_increase': percentage_increase,
