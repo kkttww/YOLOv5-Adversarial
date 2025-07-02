@@ -1,0 +1,6 @@
+make sure models are added in models folder
+
+conda env create -f environment_gpu.yml
+
+conda activate adv_gpu
+python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt

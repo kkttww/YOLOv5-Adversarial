@@ -1,0 +1,33 @@
+name: adv_gpu
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pillow=8.3.1
+  - cudatoolkit=11.2
+  - cudnn=8.1.0
+
+  - pip:
+  # Deep Learning
+    - tensorflow-gpu<2.11
+    - keras==2.10
+    - h5py==3.1.0
+    - numpy
+    - scipy==1.7.3
+    - opencv-python==4.5.3.56
+
+  # Flask ecosystem
+    - flask==2.0.3
+    - werkzeug==2.0.3
+    - jinja2==3.0.3
+    - itsdangerous==2.0.1
+    - flask-cors==3.0.10    
+    
+  # Web sockets
+    - eventlet==0.29.1
+    - flask-socketio==4.3.1
+    - python-socketio==4.6.0
+    - python-engineio==3.13.2
+    - websocket-client==1.1.0
