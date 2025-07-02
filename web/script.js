@@ -11,6 +11,13 @@ socket.on('adv', function (data) {
     $('#adv').attr("src", "data:image/png;base64," + data.data);
 });
 
+socket.on('stats', function (data) {
+    $('#originalBoxes').text(data.original_boxes);
+    $('#currentBoxes').text(data.current_boxes);
+    $('#percentageIncrease').text(data.percentage_increase.toFixed(2) + '%');
+    $('#iterations').text(data.iterations);
+});
+
 // Receive the patch
 socket.on('patch', function (data) {
     $('#patch').attr("src", "data:image/png;base64," + data.data);

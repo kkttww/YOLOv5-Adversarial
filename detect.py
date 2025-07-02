@@ -109,6 +109,7 @@ def clear_patch(sid, data):
         else:
             adv_detect.noise = np.zeros((416, 416, 3))
         adv_detect.iter = 0
+        adv_detect.attack_active = False
         adv_detect.fixed = False
 
 @sio.on('add_patch')
@@ -144,7 +145,7 @@ def adversarial_detection_thread():
         outs = adv_detect.attack(input_cv_image)
 
         # Yolo inference
-        input_cv_image, outs = adv_detect.attack(input_cv_image)
+        input_cv_image, outs, stats = adv_detect.attack(input_cv_image)
         boxes, class_ids, confidences = yolo_process_output(outs, yolov3_tiny_anchors, len(classes))
 
         # Draw bounding boxes
@@ -160,6 +161,14 @@ def adversarial_detection_thread():
 
         # Send the output image to the browser
         sio.emit('adv', {'data': img2base64(out_img*255.0)})
+
+        # Send statistics to the frontend
+        sio.emit('stats', {
+            'original_boxes': stats['original_boxes'],
+            'current_boxes': stats['current_boxes'],
+            'percentage_increase': stats['percentage_increase'],
+            'iterations': stats['iterations']
+        })
 
         eventlet.sleep()
 
