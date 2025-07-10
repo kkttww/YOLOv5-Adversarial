@@ -2,6 +2,8 @@ import os
 import argparse
 from adversarial_detection import AdversarialDetection
 import time
+import json
+from datetime import datetime
 
 import cv2
 
@@ -73,10 +75,10 @@ def redirect_to_index():
 @sio.on('connect')
 def connect(sid, environ):
     print("connect ", sid)
-
-@sio.on('connect')
-def connect(sid, environ):
-    print("connect ", sid)
+    # Immediately send fixed area status to new client
+    sio.emit('fixed_area_status', {
+        'available': adv_detect.fixed_area is not None
+    }, room=sid)
 
 @sio.on('fix_patch')
 def fix_patch(sid, data):
@@ -121,10 +123,21 @@ def add_patch(sid, data):
     else:
         adv_detect.adv_patch_boxes[data[0]] = box
 
+@sio.on('activate_fixed_area')
+def activate_fixed_area(sid, data):
+    if adv_detect.fixed_area is not None and data > 0:
+        # Activate the fixed area attack
+        adv_detect.adv_patch_boxes = [adv_detect.fixed_area]
+        adv_detect.iter = 0
+        adv_detect.attack_active = True
+        adv_detect.fixed = False
+        print("Fixed area attack activated")
+
 # Detection thread
 def adversarial_detection_thread():  
-    global sio, adv_detect, camera
+    global sio, adv_detect, camera, results
     colors = np.random.uniform(0, 255, size=(len(classes), 3))
+    metrics = None
 
     while(True): 
         # Capture the video frame
@@ -158,6 +171,24 @@ def adversarial_detection_thread():
         elapsed_time = int(time.time()*1000) - start_time
         fps = 1000 / elapsed_time
         print ("fps: ", str(round(fps, 2)))
+
+        if adv_detect.max_iterations is not None:
+            # After attack processing, collect metrics
+            if adv_detect.attack_active and adv_detect.iter <= adv_detect.max_iterations:
+                metrics = adv_detect.collect_attack_metrics()
+                results['metrics_over_time'].append(metrics)
+            
+            # If max iterations reached, save results
+            if adv_detect.iter == adv_detect.max_iterations and not adv_detect.fixed:
+                results['final_metrics'] = metrics
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                result_file = os.path.join(args.output_dir, f"results_{adv_detect.attack_type}_{timestamp}.json")
+                with open(result_file, 'w') as f:
+                    json.dump(results, f, indent=2)
+                adv_detect.fixed = True
+                adv_detect.iter = 0  # Reset iteration count for next experiment
+                adv_detect.attack_active = False  # Reset attack status
+                print(f"Experiment complete. Results saved to {result_file}")
 
         # Send the output image to the browser
         sio.emit('adv', {'data': img2base64(out_img*255.0)})
@@ -194,14 +225,42 @@ if __name__ == '__main__':
     parser.add_argument('--class_name', help='class names', type=str, required=True)
     parser.add_argument('--attack', help='adversarial attacks type', choices=['one_targeted', 'multi_targeted', 'multi_untargeted'], type=str, required=False, default="multi_untargeted")
     parser.add_argument('--monochrome', action='store_true', help='monochrome patch')
+    parser.add_argument('--fixed_area', help='fixed attack area [x,y,w,h]', type=str, default=None)
+    parser.add_argument('--max_iter', help='maximum iterations', type=int, default=None)
+    parser.add_argument('--output_dir', help='directory to save results', type=str, default='results')
     args = parser.parse_args()
+
+    # Parse fixed area if provided
+    fixed_area = None
+    if args.fixed_area:
+        fixed_area = [int(x) for x in args.fixed_area.split(',')]
+        if len(fixed_area) != 4:
+            raise ValueError("Fixed area must be in format x,y,w,h")
+    
+    # Create output directory
+    os.makedirs(args.output_dir, exist_ok=True)
 
     with open(args.class_name) as f:
         content = f.readlines()
     classes = [x.strip() for x in content] 
 
+    # Create a results dictionary
+    results = {
+        'parameters': vars(args),
+        'metrics_over_time': [],
+        'final_metrics': None
+    }
+
     try:
-        adv_detect = AdversarialDetection(args.model, args.attack, args.monochrome, classes)
+        # Initialize with experiment parameters
+        adv_detect = AdversarialDetection(
+            args.model, 
+            args.attack, 
+            args.monochrome, 
+            classes,
+            fixed_area=fixed_area,
+            max_iterations=args.max_iter
+        )
 
         t1 = threading.Thread(target=websocket_server_thread, daemon=True)
         t1.start()
