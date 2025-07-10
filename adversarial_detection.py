@@ -5,7 +5,7 @@ from keras.models import load_model
 from yolov3 import yolo_process_output, yolov3_tiny_anchors
 
 class AdversarialDetection:
-    def __init__(self, model, attack_type, monochrome, classes, xi=8/255.0, lr= 1 /255.0, fixed_area=None, max_iterations=100):
+    def __init__(self, model, attack_type, monochrome, classes, xi=8/255.0, lr= 1 /255.0, fixed_area=None, max_iterations=None):
         import tensorflow as tf
         tf.compat.v1.disable_eager_execution()
         import keras.backend as K
@@ -39,9 +39,6 @@ class AdversarialDetection:
             self.adv_patch_boxes = [self.fixed_area]
             print(f"Fixed attack area set to: {self.fixed_area}")
         self.max_iterations = max_iterations  # User-set iteration limit
-        # Initialize with fixed area if provided
-        if self.fixed_area is not None:
-            self.adv_patch_boxes = [self.fixed_area]
 
         self.model = load_model(model)
         self.model.summary()
@@ -97,8 +94,9 @@ class AdversarialDetection:
 
                 if(len(self.adv_patch_boxes) > 0 and (not self.fixed)):
                     # Check if we've reached max iterations
-                    if self.iter >= self.max_iterations and not self.fixed:
+                    if self.max_iterations is not None and  self.iter >= self.max_iterations and not self.fixed:
                         self.fixed = True
+                        self.attack_active = False
                     self.iter += 1
                     self.attack_active = True  # Mark the attack as active
 

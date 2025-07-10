@@ -36,6 +36,11 @@ socket.on('disconnect', function () {
 
 var boxes = [];
 
+function activate_fixed_area_attack() {
+    // Check if fixed area is available (button will be disabled if not)
+    socket.emit('activate_fixed_area', 1);
+}
+
 function clear_patch() {
     boxes = [];
     var ctx=$('#canvas')[0].getContext('2d'); 
@@ -67,6 +72,28 @@ $(document).ready(function () {
         else
         {
             fix_patch(0);
+        }
+    });
+
+    // Ensure the status handler properly enables the button
+    socket.on('fixed_area_status', function(data) {
+        const btn = $('#fixedAreaAttackBtn');
+        const message = $('#fixedAreaMessage');
+
+        if (data.available) {
+            // When fixed area is available
+            btn.removeClass('btn-secondary')
+            .addClass('btn-primary')
+            .prop('disabled', false)
+            .css('pointer-events', 'auto')
+            .off('click').on('click', activate_fixed_area_attack);
+            message.text('');
+        } else {
+            btn.removeClass('btn-primary')
+            .addClass('btn-secondary')
+            .prop('disabled', true)
+            .css('pointer-events', 'none');
+            message.text('No fixed area specified in command line arguments');
         }
     });
 

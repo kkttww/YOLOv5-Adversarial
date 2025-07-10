@@ -52,17 +52,12 @@
             <div class="col-md-6">
                 <canvas id="canvas" width="416px" height="416px"></canvas>
                 <h4>Perturbation</h4>
+                <div class="btn btn-secondary" id="fixedAreaAttackBtn" onclick="activate_fixed_area_attack()"disabled>Activate Fixed Area Attack</div>
+                <div id="fixedAreaMessage" class="text-muted small mt-1"></div>
             </div>
             <div class="col-md-6">
                 <img id="patch" width="416px" height="416px"></img>
                 <h4>Overlay</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
                 <div class="btn btn-primary" onclick="clear_patch()">Clear Overlay</div>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="fixPatchCheck">
