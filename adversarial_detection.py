@@ -92,13 +92,15 @@ class AdversarialDetection:
                 else:
                     input_cv_image[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :] += self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :]
 
-                if(len(self.adv_patch_boxes) > 0 and (not self.fixed)):
+                if not self.fixed and len(self.adv_patch_boxes) > 0:
                     # Check if we've reached max iterations
-                    if self.max_iterations is not None and  self.iter >= self.max_iterations and not self.fixed:
+                    if self.max_iterations is not None and self.iter >= self.max_iterations and not self.fixed:
                         self.fixed = True
                         self.attack_active = False
-                    self.iter += 1
-                    self.attack_active = True  # Mark the attack as active
+                    else:
+                        self.attack_active = True  # Mark the attack as active
+                        self.iter += 1
+                        
 
                     grads = self.sess.run(self.delta, feed_dict={self.model.input:np.array([input_cv_image])})
                     if self.monochrome:

@@ -6,4 +6,4 @@ cd ../../users/kanek/adv-detect
 conda activate adv_gpu
 python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt
 
-(adv_gpu) C:\Users\Kanek\adv-detect>python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt --attack multi_targeted --max_iter 100 --fixed_area 100,100,240,200 
+python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt --attack multi_untargeted --max_iter 200 --fixed_area 100,100,240,200 

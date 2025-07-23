@@ -103,8 +103,13 @@ def fix_patch(sid, data):
         adv_detect.fixed = False
 
 @sio.on('clear_patch')
-def clear_patch(sid, data):
+def clear_patch(sid, data, callback=None):
     if(data > 0):
+        # Reset metrics collection
+        adv_detect.original_boxes_count = 0
+        adv_detect.current_boxes_count = 0
+        adv_detect.percentage_increase = 0
+
         adv_detect.adv_patch_boxes = []
         if adv_detect.monochrome:
             adv_detect.noise = np.zeros((416, 416))
@@ -113,6 +118,11 @@ def clear_patch(sid, data):
         adv_detect.iter = 0
         adv_detect.attack_active = False
         adv_detect.fixed = False
+
+        # Send response back to client
+        if callback:
+            callback({'status': 'cleared'})
+        print("All patches cleared")
 
 @sio.on('add_patch')
 def add_patch(sid, data):
@@ -126,6 +136,10 @@ def add_patch(sid, data):
 @sio.on('activate_fixed_area')
 def activate_fixed_area(sid, data):
     if adv_detect.fixed_area is not None and data > 0:
+        # Reset metrics collection
+        global results
+        results['metrics_over_time'] = []
+
         # Activate the fixed area attack
         adv_detect.adv_patch_boxes = [adv_detect.fixed_area]
         adv_detect.iter = 0
@@ -179,15 +193,14 @@ def adversarial_detection_thread():
                 results['metrics_over_time'].append(metrics)
             
             # If max iterations reached, save results
-            if adv_detect.iter == adv_detect.max_iterations and not adv_detect.fixed:
-                results['final_metrics'] = metrics
+            if adv_detect.iter == adv_detect.max_iterations:
+                adv_detect.iter = 0  # Reset iteration count for next experiment
+                adv_detect.attack_active = False  # Reset attack status
+                adv_detect.fixed = True
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 result_file = os.path.join(args.output_dir, f"results_{adv_detect.attack_type}_{timestamp}.json")
                 with open(result_file, 'w') as f:
                     json.dump(results, f, indent=2)
-                adv_detect.fixed = True
-                adv_detect.iter = 0  # Reset iteration count for next experiment
-                adv_detect.attack_active = False  # Reset attack status
                 print(f"Experiment complete. Results saved to {result_file}")
 
         # Send the output image to the browser
@@ -248,7 +261,6 @@ if __name__ == '__main__':
     results = {
         'parameters': vars(args),
         'metrics_over_time': [],
-        'final_metrics': None
     }
 
     try:

@@ -36,11 +36,6 @@ socket.on('disconnect', function () {
 
 var boxes = [];
 
-function activate_fixed_area_attack() {
-    // Check if fixed area is available (button will be disabled if not)
-    socket.emit('activate_fixed_area', 1);
-}
-
 function clear_patch() {
     boxes = [];
     var ctx=$('#canvas')[0].getContext('2d'); 
@@ -53,6 +48,14 @@ function clear_patch() {
 
     $('#patch').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQYV2P4DwABAQEAWk1v8QAAAABJRU5ErkJggg==");
 }
+
+function activate_fixed_area_attack() {
+    // First clear any existing patches
+    clear_patch();
+    // Activate fixed area attack
+    socket.emit('activate_fixed_area', 1);
+};
+
 
 // Receive the original image
 socket.on('update', function (data) {
@@ -86,7 +89,6 @@ $(document).ready(function () {
             .addClass('btn-primary')
             .prop('disabled', false)
             .css('pointer-events', 'auto')
-            .off('click').on('click', activate_fixed_area_attack);
             message.text('');
         } else {
             btn.removeClass('btn-primary')
