@@ -1,7 +1,6 @@
 # Ignore everything
-
-# Except .ipynb files anywhere
 multi_targeted/
 multi_untargeted/
 one_targeted/
+# Except .ipynb files anywhere
 !*.ipynb
