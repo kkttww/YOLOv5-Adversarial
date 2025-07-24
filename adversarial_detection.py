@@ -73,10 +73,10 @@ class AdversarialDetection:
         self.delta = K.sign(grads[0])
         self.sess = tf.compat.v1.keras.backend.get_session()
 
-    def attack(self, input_cv_image):
+    def attack(self, input_cv_image, fixed_callback=None):
         with self.graph.as_default():
             # Before attack, get original detection count
-            if not self.attack_active:
+            if not self.attack_active and not self.fixed and self.iter==0:
                 original_output = self.sess.run(self.model.output, 
                                             feed_dict={self.model.input: np.array([input_cv_image])})
                 boxes, _, _ = yolo_process_output(original_output, yolov3_tiny_anchors, self.num_classes)
@@ -95,12 +95,10 @@ class AdversarialDetection:
                 if not self.fixed and len(self.adv_patch_boxes) > 0:
                     # Check if we've reached max iterations
                     if self.max_iterations is not None and self.iter >= self.max_iterations and not self.fixed:
-                        self.fixed = True
                         self.attack_active = False
                     else:
                         self.attack_active = True  # Mark the attack as active
                         self.iter += 1
-                        
 
                     grads = self.sess.run(self.delta, feed_dict={self.model.input:np.array([input_cv_image])})
                     if self.monochrome:

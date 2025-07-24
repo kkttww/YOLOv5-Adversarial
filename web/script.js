@@ -41,7 +41,7 @@ function clear_patch() {
     var ctx=$('#canvas')[0].getContext('2d'); 
     ctx.clearRect(0, 0, 416, 416);
 
-    $("#fixPatchCheck").prop("checked", false);
+    //$("#fixPatchCheck").prop("checked", false);
     socket.emit('fix_patch', 0);
 
     socket.emit('clear_patch', 1);
@@ -49,9 +49,22 @@ function clear_patch() {
     $('#patch').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQYV2P4DwABAQEAWk1v8QAAAABJRU5ErkJggg==");
 }
 
+socket.on('fixed_status', function(data) {
+    $("#fixPatchCheck").prop("checked", data.fixed);
+});
+
+function fix_patch(fixed) {
+    socket.emit('fix_patch', fixed);
+}
+
 function activate_fixed_area_attack() {
     // First clear any existing patches
-    clear_patch();
+    boxes = [];
+    var ctx=$('#canvas')[0].getContext('2d'); 
+    ctx.clearRect(0, 0, 416, 416);
+    socket.emit('fix_patch', 0);
+    $('#patch').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQYV2P4DwABAQEAWk1v8QAAAABJRU5ErkJggg==");
+
     // Activate fixed area attack
     socket.emit('activate_fixed_area', 1);
 };
@@ -62,20 +75,22 @@ socket.on('update', function (data) {
     $('#origin').attr("src", "data:image/png;base64," + data.data);
 });
 
-function fix_patch(fixed) {
-    socket.emit('fix_patch', fixed);
-}
+
 
 $(document).ready(function () {
     // Fix patch
     $("#fixPatchCheck").change(function() {
-        if(this.checked) {
-            fix_patch(1);
+        // Only emit if the change wasn't triggered by the server
+        if (!$(this).data('server-update')) {
+            fix_patch(this.checked ? 1 : 0);
         }
-        else
-        {
-            fix_patch(0);
-        }
+    });
+
+    socket.on('fixed_status', function(data) {
+        // Mark this as a server update to prevent feedback loop
+        $("#fixPatchCheck").data('server-update', true)
+                          .prop('checked', data.fixed)
+                          .data('server-update', false);
     });
 
     // Ensure the status handler properly enables the button

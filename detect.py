@@ -86,6 +86,9 @@ def fix_patch(sid, data):
         # Stop iterating if we choose to fix the patch
         adv_detect.fixed = True
 
+        # Notify all clients about the fixed status
+        sio.emit('fixed_status', {'fixed': True})
+
         # Save each patch
         patch_cv_image = np.zeros((416, 416, 3))
         for box in adv_detect.adv_patch_boxes:
@@ -100,13 +103,12 @@ def fix_patch(sid, data):
         # Publish the patch image
         sio.emit('patch', {'data': img2base64(patch_cv_image*255.0), 'boxes': adv_detect.adv_patch_boxes})
     else:
-        adv_detect.fixed = False
+        sio.emit('fixed_status', {'fixed': False})
 
 @sio.on('clear_patch')
 def clear_patch(sid, data, callback=None):
     if(data > 0):
         # Reset metrics collection
-        adv_detect.original_boxes_count = 0
         adv_detect.current_boxes_count = 0
         adv_detect.percentage_increase = 0
 
@@ -139,6 +141,16 @@ def activate_fixed_area(sid, data):
         # Reset metrics collection
         global results
         results['metrics_over_time'] = []
+
+        # Clear previous metrics and patches
+        adv_detect.current_boxes_count = 0
+        adv_detect.percentage_increase = 0
+
+        adv_detect.adv_patch_boxes = []
+        if adv_detect.monochrome:
+            adv_detect.noise = np.zeros((416, 416))
+        else:
+            adv_detect.noise = np.zeros((416, 416, 3))
 
         # Activate the fixed area attack
         adv_detect.adv_patch_boxes = [adv_detect.fixed_area]
@@ -186,7 +198,7 @@ def adversarial_detection_thread():
         fps = 1000 / elapsed_time
         print ("fps: ", str(round(fps, 2)))
 
-        if adv_detect.max_iterations is not None:
+        if adv_detect.max_iterations is not None and not adv_detect.fixed:
             # After attack processing, collect metrics
             if adv_detect.attack_active and adv_detect.iter <= adv_detect.max_iterations:
                 metrics = adv_detect.collect_attack_metrics()
@@ -194,9 +206,10 @@ def adversarial_detection_thread():
             
             # If max iterations reached, save results
             if adv_detect.iter == adv_detect.max_iterations:
-                adv_detect.iter = 0  # Reset iteration count for next experiment
+                # adv_detect.iter = 0  # Reset iteration count for next experiment
                 adv_detect.attack_active = False  # Reset attack status
                 adv_detect.fixed = True
+                fix_patch(0,1)
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 result_file = os.path.join(args.output_dir, f"results_{adv_detect.attack_type}_{timestamp}.json")
                 with open(result_file, 'w') as f:
