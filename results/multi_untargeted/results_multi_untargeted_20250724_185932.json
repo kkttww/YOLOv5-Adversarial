@@ -1,0 +1,1413 @@
+{
+  "parameters": {
+    "model": "model/yolov3-tiny.h5",
+    "class_name": "coco_classes.txt",
+    "attack": "multi_untargeted",
+    "monochrome": false,
+    "fixed_area": "100,100,240,200",
+    "max_iter": 200,
+    "output_dir": "results"
+  },
+  "metrics_over_time": [
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 2,
+      "percentage_increase": 0.0,
+      "iterations": 2,
+      "noise_magnitude": 0.0010891333261962106,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 2,
+      "percentage_increase": 0.0,
+      "iterations": 4,
+      "noise_magnitude": 0.00164465265749822,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 3,
+      "percentage_increase": 50.0,
+      "iterations": 6,
+      "noise_magnitude": 0.002094709124343052,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 4,
+      "percentage_increase": 100.0,
+      "iterations": 8,
+      "noise_magnitude": 0.002475620257435139,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 7,
+      "percentage_increase": 250.0,
+      "iterations": 10,
+      "noise_magnitude": 0.002815394674109272,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 9,
+      "percentage_increase": 350.0,
+      "iterations": 12,
+      "noise_magnitude": 0.003116494838403714,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 16,
+      "percentage_increase": 700.0,
+      "iterations": 14,
+      "noise_magnitude": 0.003361759054489698,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 18,
+      "percentage_increase": 800.0,
+      "iterations": 16,
+      "noise_magnitude": 0.00358607723472278,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 21,
+      "percentage_increase": 950.0,
+      "iterations": 18,
+      "noise_magnitude": 0.003757089912699786,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 33,
+      "percentage_increase": 1550.0,
+      "iterations": 20,
+      "noise_magnitude": 0.003911900195174213,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 35,
+      "percentage_increase": 1650.0,
+      "iterations": 22,
+      "noise_magnitude": 0.004050402332782216,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 46,
+      "percentage_increase": 2200.0,
+      "iterations": 24,
+      "noise_magnitude": 0.0041632903356334326,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 23,
+      "percentage_increase": 1050.0,
+      "iterations": 26,
+      "noise_magnitude": 0.004255655305161763,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 49,
+      "percentage_increase": 2350.0,
+      "iterations": 28,
+      "noise_magnitude": 0.004364826956482108,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 55,
+      "percentage_increase": 2650.0,
+      "iterations": 30,
+      "noise_magnitude": 0.004451481432555855,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 60,
+      "percentage_increase": 2900.0,
+      "iterations": 32,
+      "noise_magnitude": 0.004530582345655442,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 58,
+      "percentage_increase": 2800.0,
+      "iterations": 34,
+      "noise_magnitude": 0.004591668008772623,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 68,
+      "percentage_increase": 3300.0,
+      "iterations": 36,
+      "noise_magnitude": 0.004657595507307094,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 71,
+      "percentage_increase": 3450.0,
+      "iterations": 38,
+      "noise_magnitude": 0.004688640646828722,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 73,
+      "percentage_increase": 3550.0,
+      "iterations": 40,
+      "noise_magnitude": 0.004729784903077298,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 74,
+      "percentage_increase": 3600.0,
+      "iterations": 42,
+      "noise_magnitude": 0.0047709744814155635,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 94,
+      "percentage_increase": 4600.0,
+      "iterations": 44,
+      "noise_magnitude": 0.004828502419442009,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 91,
+      "percentage_increase": 4450.0,
+      "iterations": 46,
+      "noise_magnitude": 0.004862689844905533,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 96,
+      "percentage_increase": 4700.0,
+      "iterations": 48,
+      "noise_magnitude": 0.004906417422946289,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 105,
+      "percentage_increase": 5150.0,
+      "iterations": 50,
+      "noise_magnitude": 0.004928745752610413,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 94,
+      "percentage_increase": 4600.0,
+      "iterations": 52,
+      "noise_magnitude": 0.004953173973433443,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 103,
+      "percentage_increase": 5050.0,
+      "iterations": 54,
+      "noise_magnitude": 0.004971249647781034,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 99,
+      "percentage_increase": 4850.0,
+      "iterations": 56,
+      "noise_magnitude": 0.004980495205790757,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 101,
+      "percentage_increase": 4950.0,
+      "iterations": 58,
+      "noise_magnitude": 0.004991055084524577,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 98,
+      "percentage_increase": 4800.0,
+      "iterations": 60,
+      "noise_magnitude": 0.005019116572320775,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 103,
+      "percentage_increase": 5050.0,
+      "iterations": 62,
+      "noise_magnitude": 0.005040583798726933,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 113,
+      "percentage_increase": 5550.0,
+      "iterations": 64,
+      "noise_magnitude": 0.005067489591395785,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 116,
+      "percentage_increase": 5700.0,
+      "iterations": 66,
+      "noise_magnitude": 0.005077452740256242,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 119,
+      "percentage_increase": 5850.0,
+      "iterations": 68,
+      "noise_magnitude": 0.0050985422885270965,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 120,
+      "percentage_increase": 5900.0,
+      "iterations": 70,
+      "noise_magnitude": 0.00509882932191124,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 116,
+      "percentage_increase": 5700.0,
+      "iterations": 72,
+      "noise_magnitude": 0.005113249074789591,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 127,
+      "percentage_increase": 6250.0,
+      "iterations": 74,
+      "noise_magnitude": 0.005128832075251726,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 120,
+      "percentage_increase": 5900.0,
+      "iterations": 76,
+      "noise_magnitude": 0.005139905599111795,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 125,
+      "percentage_increase": 6150.0,
+      "iterations": 78,
+      "noise_magnitude": 0.005146764232557023,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 129,
+      "percentage_increase": 6350.0,
+      "iterations": 80,
+      "noise_magnitude": 0.005166660319247857,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 122,
+      "percentage_increase": 6000.0,
+      "iterations": 82,
+      "noise_magnitude": 0.005173231918115334,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 123,
+      "percentage_increase": 6050.0,
+      "iterations": 84,
+      "noise_magnitude": 0.0051906806501335855,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 143,
+      "percentage_increase": 7050.0,
+      "iterations": 86,
+      "noise_magnitude": 0.00521221586053732,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 138,
+      "percentage_increase": 6800.0,
+      "iterations": 88,
+      "noise_magnitude": 0.005225298632449026,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 142,
+      "percentage_increase": 7000.0,
+      "iterations": 90,
+      "noise_magnitude": 0.005216204139967673,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 140,
+      "percentage_increase": 6900.0,
+      "iterations": 92,
+      "noise_magnitude": 0.0052256838616791985,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 133,
+      "percentage_increase": 6550.0,
+      "iterations": 94,
+      "noise_magnitude": 0.005222805953178031,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 145,
+      "percentage_increase": 7150.0,
+      "iterations": 96,
+      "noise_magnitude": 0.005239189632282786,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 145,
+      "percentage_increase": 7150.0,
+      "iterations": 98,
+      "noise_magnitude": 0.005234793456439622,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 149,
+      "percentage_increase": 7350.0,
+      "iterations": 100,
+      "noise_magnitude": 0.005227904605428048,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 148,
+      "percentage_increase": 7300.0,
+      "iterations": 102,
+      "noise_magnitude": 0.005230351959632479,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 151,
+      "percentage_increase": 7450.0,
+      "iterations": 104,
+      "noise_magnitude": 0.005242430107838211,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 144,
+      "percentage_increase": 7100.0,
+      "iterations": 106,
+      "noise_magnitude": 0.0052487373337534995,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 154,
+      "percentage_increase": 7600.0,
+      "iterations": 108,
+      "noise_magnitude": 0.005251018509290069,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 150,
+      "percentage_increase": 7400.0,
+      "iterations": 110,
+      "noise_magnitude": 0.005251600133260647,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 149,
+      "percentage_increase": 7350.0,
+      "iterations": 112,
+      "noise_magnitude": 0.005264320334533691,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 150,
+      "percentage_increase": 7400.0,
+      "iterations": 114,
+      "noise_magnitude": 0.005271669951676155,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 153,
+      "percentage_increase": 7550.0,
+      "iterations": 116,
+      "noise_magnitude": 0.005275544929786539,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 155,
+      "percentage_increase": 7650.0,
+      "iterations": 118,
+      "noise_magnitude": 0.005273792502198488,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 150,
+      "percentage_increase": 7400.0,
+      "iterations": 120,
+      "noise_magnitude": 0.005271994752731599,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 148,
+      "percentage_increase": 7300.0,
+      "iterations": 122,
+      "noise_magnitude": 0.0052715113249286825,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 157,
+      "percentage_increase": 7750.0,
+      "iterations": 124,
+      "noise_magnitude": 0.005286867720349363,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 162,
+      "percentage_increase": 8000.0,
+      "iterations": 126,
+      "noise_magnitude": 0.005289549234746241,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 164,
+      "percentage_increase": 8100.0,
+      "iterations": 128,
+      "noise_magnitude": 0.00529034235866671,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 166,
+      "percentage_increase": 8200.0,
+      "iterations": 130,
+      "noise_magnitude": 0.005303349595114314,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 167,
+      "percentage_increase": 8250.0,
+      "iterations": 132,
+      "noise_magnitude": 0.005313531799872591,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 166,
+      "percentage_increase": 8200.0,
+      "iterations": 134,
+      "noise_magnitude": 0.005320239365323608,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 182,
+      "percentage_increase": 9000.0,
+      "iterations": 136,
+      "noise_magnitude": 0.005325557073282038,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 186,
+      "percentage_increase": 9200.0,
+      "iterations": 138,
+      "noise_magnitude": 0.005338179079759719,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 176,
+      "percentage_increase": 8700.0,
+      "iterations": 140,
+      "noise_magnitude": 0.00531601692118725,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 174,
+      "percentage_increase": 8600.0,
+      "iterations": 142,
+      "noise_magnitude": 0.005319718167930327,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 172,
+      "percentage_increase": 8500.0,
+      "iterations": 144,
+      "noise_magnitude": 0.0053213421828779235,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 182,
+      "percentage_increase": 9000.0,
+      "iterations": 146,
+      "noise_magnitude": 0.005331237351864833,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 177,
+      "percentage_increase": 8750.0,
+      "iterations": 148,
+      "noise_magnitude": 0.005319196970361934,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 177,
+      "percentage_increase": 8750.0,
+      "iterations": 150,
+      "noise_magnitude": 0.005332589439470444,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 178,
+      "percentage_increase": 8800.0,
+      "iterations": 152,
+      "noise_magnitude": 0.005338028004239336,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 190,
+      "percentage_increase": 9400.0,
+      "iterations": 154,
+      "noise_magnitude": 0.005344063302355206,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 185,
+      "percentage_increase": 9150.0,
+      "iterations": 156,
+      "noise_magnitude": 0.005342295767963802,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 174,
+      "percentage_increase": 8600.0,
+      "iterations": 158,
+      "noise_magnitude": 0.0053373708439719905,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 197,
+      "percentage_increase": 9750.0,
+      "iterations": 160,
+      "noise_magnitude": 0.0053395915919592285,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 187,
+      "percentage_increase": 9250.0,
+      "iterations": 162,
+      "noise_magnitude": 0.005340263858944158,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 197,
+      "percentage_increase": 9750.0,
+      "iterations": 164,
+      "noise_magnitude": 0.005342922714195603,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 187,
+      "percentage_increase": 9250.0,
+      "iterations": 166,
+      "noise_magnitude": 0.00534386690940879,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 195,
+      "percentage_increase": 9650.0,
+      "iterations": 168,
+      "noise_magnitude": 0.00535284054278895,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 189,
+      "percentage_increase": 9350.0,
+      "iterations": 170,
+      "noise_magnitude": 0.005350831294758756,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 202,
+      "percentage_increase": 10000.0,
+      "iterations": 172,
+      "noise_magnitude": 0.005364170889067408,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 200,
+      "percentage_increase": 9900.0,
+      "iterations": 174,
+      "noise_magnitude": 0.005380539462197906,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 214,
+      "percentage_increase": 10600.0,
+      "iterations": 176,
+      "noise_magnitude": 0.005370130650354031,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 209,
+      "percentage_increase": 10350.0,
+      "iterations": 178,
+      "noise_magnitude": 0.005371361881642346,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 209,
+      "percentage_increase": 10350.0,
+      "iterations": 180,
+      "noise_magnitude": 0.005381914210274781,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 217,
+      "percentage_increase": 10750.0,
+      "iterations": 182,
+      "noise_magnitude": 0.00539161298639747,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 208,
+      "percentage_increase": 10300.0,
+      "iterations": 184,
+      "noise_magnitude": 0.005404952581145689,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 213,
+      "percentage_increase": 10550.0,
+      "iterations": 186,
+      "noise_magnitude": 0.005411040753046488,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 212,
+      "percentage_increase": 10500.0,
+      "iterations": 188,
+      "noise_magnitude": 0.00543324823089258,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 214,
+      "percentage_increase": 10600.0,
+      "iterations": 190,
+      "noise_magnitude": 0.005431767732247526,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 218,
+      "percentage_increase": 10800.0,
+      "iterations": 192,
+      "noise_magnitude": 0.005437583976920697,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 222,
+      "percentage_increase": 11000.0,
+      "iterations": 194,
+      "noise_magnitude": 0.005434834478912205,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 225,
+      "percentage_increase": 11150.0,
+      "iterations": 196,
+      "noise_magnitude": 0.005439064475465689,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 221,
+      "percentage_increase": 10950.0,
+      "iterations": 198,
+      "noise_magnitude": 0.005433671229445092,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    },
+    {
+      "attack_type": "multi_untargeted",
+      "original_boxes": 2,
+      "current_boxes": 222,
+      "percentage_increase": 11000.0,
+      "iterations": 200,
+      "noise_magnitude": 0.0054416780073587925,
+      "active_area": [
+        100,
+        100,
+        240,
+        200
+      ]
+    }
+  ]
+}

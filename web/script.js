@@ -79,8 +79,12 @@ $(document).ready(function () {
     // Fix patch
     $("#fixPatchCheck").change(function() {
         // Only emit if the change wasn't triggered by the server
-        if (!$(this).data('server-update')) {
-            fix_patch(this.checked ? 1 : 0);
+        if(this.checked) {
+            fix_patch(1);
+        }
+        else
+        {
+            fix_patch(0);
         }
     });
 

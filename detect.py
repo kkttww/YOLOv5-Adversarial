@@ -105,6 +105,7 @@ def fix_patch(sid, data):
         sio.emit('patch', {'data': img2base64(patch_cv_image*255.0), 'boxes': adv_detect.adv_patch_boxes})
     else:
         adv_detect.fixed = False  # Reset fixed status
+        adv_detect.attack_active = True  # Attack starts of unchecked
         sio.emit('fixed_status', {'fixed': False})
 
 @sio.on('clear_patch')
