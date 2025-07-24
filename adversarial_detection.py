@@ -27,6 +27,7 @@ class AdversarialDetection:
         self.adv_patch_boxes = []
         self.fixed = False
         
+        self.results_saved = False
         self.iter = 0 # Attack iteration counter
         self.attack_active = False  # Track if the attack is active
         self.original_boxes_count = 0  # Track original boxes count
@@ -76,7 +77,10 @@ class AdversarialDetection:
     def attack(self, input_cv_image, fixed_callback=None):
         with self.graph.as_default():
             # Before attack, get original detection count
-            if not self.attack_active and not self.fixed and self.iter==0:
+            if (not self.attack_active 
+                and not self.fixed 
+                and len(self.adv_patch_boxes) == 0
+                and self.adv_patch_boxes == []):
                 original_output = self.sess.run(self.model.output, 
                                             feed_dict={self.model.input: np.array([input_cv_image])})
                 boxes, _, _ = yolo_process_output(original_output, yolov3_tiny_anchors, self.num_classes)
@@ -92,7 +96,10 @@ class AdversarialDetection:
                 else:
                     input_cv_image[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :] += self.noise[box[1]:(box[1]+box[3]), box[0]:(box[0] + box[2]), :]
 
-                if not self.fixed and len(self.adv_patch_boxes) > 0:
+                if (self.attack_active 
+                    and not self.fixed 
+                    and len(self.adv_patch_boxes) > 0 
+                    and self.results_saved == False):
                     # Check if we've reached max iterations
                     if self.max_iterations is not None and self.iter >= self.max_iterations and not self.fixed:
                         self.attack_active = False
@@ -121,7 +128,8 @@ class AdversarialDetection:
             adv_output = self.sess.run(self.model.output, 
                                     feed_dict={self.model.input: np.array([input_cv_image])})
             boxes, _, _ = yolo_process_output(adv_output, yolov3_tiny_anchors, self.num_classes)
-            self.current_boxes_count = len(boxes) if boxes is not None else 0
+            if self.results_saved == False:
+                self.current_boxes_count = len(boxes) if boxes is not None else 0
             
             # Calculate percentage increase
             self.percentage_increase = 0

@@ -85,6 +85,7 @@ def fix_patch(sid, data):
     if(data > 0):
         # Stop iterating if we choose to fix the patch
         adv_detect.fixed = True
+        adv_detect.attack_active = False  # Stop the attack
 
         # Notify all clients about the fixed status
         sio.emit('fixed_status', {'fixed': True})
@@ -103,28 +104,36 @@ def fix_patch(sid, data):
         # Publish the patch image
         sio.emit('patch', {'data': img2base64(patch_cv_image*255.0), 'boxes': adv_detect.adv_patch_boxes})
     else:
+        adv_detect.fixed = False  # Reset fixed status
         sio.emit('fixed_status', {'fixed': False})
 
 @sio.on('clear_patch')
 def clear_patch(sid, data, callback=None):
     if(data > 0):
-        # Reset metrics collection
+        # Reset metrics and patches
+        adv_detect.adv_patch_boxes = []
         adv_detect.current_boxes_count = 0
         adv_detect.percentage_increase = 0
-
-        adv_detect.adv_patch_boxes = []
-        if adv_detect.monochrome:
-            adv_detect.noise = np.zeros((416, 416))
-        else:
-            adv_detect.noise = np.zeros((416, 416, 3))
         adv_detect.iter = 0
         adv_detect.attack_active = False
         adv_detect.fixed = False
 
+        # Reset metrics collection
+        global results
+        results['metrics_over_time'] = []
+        adv_detect.results_saved = False
+
+        if adv_detect.monochrome:
+            adv_detect.noise = np.zeros((416, 416))
+        else:
+            adv_detect.noise = np.zeros((416, 416, 3))
+
         # Send response back to client
         if callback:
             callback({'status': 'cleared'})
+        sio.emit('patch_cleared', {'status': 'done'}, room=sid)
         print("All patches cleared")
+        
 
 @sio.on('add_patch')
 def add_patch(sid, data):
@@ -134,29 +143,18 @@ def add_patch(sid, data):
         adv_detect.iter = 0
     else:
         adv_detect.adv_patch_boxes[data[0]] = box
+    adv_detect.attack_active = True  # Mark the attack as active
 
 @sio.on('activate_fixed_area')
 def activate_fixed_area(sid, data):
-    if adv_detect.fixed_area is not None and data > 0:
-        # Reset metrics collection
-        global results
-        results['metrics_over_time'] = []
-
-        # Clear previous metrics and patches
-        adv_detect.current_boxes_count = 0
-        adv_detect.percentage_increase = 0
-
-        adv_detect.adv_patch_boxes = []
-        if adv_detect.monochrome:
-            adv_detect.noise = np.zeros((416, 416))
-        else:
-            adv_detect.noise = np.zeros((416, 416, 3))
-
+    if (adv_detect.fixed_area is not None and data > 0 
+        and adv_detect.current_boxes_count == 0 
+        and adv_detect.adv_patch_boxes == [] 
+        and results['metrics_over_time'] == []):
         # Activate the fixed area attack
         adv_detect.adv_patch_boxes = [adv_detect.fixed_area]
-        adv_detect.iter = 0
         adv_detect.attack_active = True
-        adv_detect.fixed = False
+        
         print("Fixed area attack activated")
 
 # Detection thread
@@ -198,15 +196,20 @@ def adversarial_detection_thread():
         fps = 1000 / elapsed_time
         print ("fps: ", str(round(fps, 2)))
 
-        if adv_detect.max_iterations is not None and not adv_detect.fixed:
+        if (adv_detect.max_iterations is not None 
+            and not adv_detect.fixed 
+            and not adv_detect.results_saved):
             # After attack processing, collect metrics
-            if adv_detect.attack_active and adv_detect.iter <= adv_detect.max_iterations:
+            if (adv_detect.attack_active 
+                and adv_detect.iter < adv_detect.max_iterations 
+                and not (adv_detect.iter < 4 and adv_detect.current_boxes_count > 15)):
                 metrics = adv_detect.collect_attack_metrics()
                 results['metrics_over_time'].append(metrics)
             
             # If max iterations reached, save results
             if adv_detect.iter == adv_detect.max_iterations:
-                # adv_detect.iter = 0  # Reset iteration count for next experiment
+                metrics = adv_detect.collect_attack_metrics()
+                results['metrics_over_time'].append(metrics)
                 adv_detect.attack_active = False  # Reset attack status
                 adv_detect.fixed = True
                 fix_patch(0,1)
@@ -215,6 +218,8 @@ def adversarial_detection_thread():
                 with open(result_file, 'w') as f:
                     json.dump(results, f, indent=2)
                 print(f"Experiment complete. Results saved to {result_file}")
+                adv_detect.results_saved = True
+                results['metrics_over_time'] = [] # Reset metrics for next experiment
 
         # Send the output image to the browser
         sio.emit('adv', {'data': img2base64(out_img*255.0)})

@@ -59,14 +59,12 @@ function fix_patch(fixed) {
 
 function activate_fixed_area_attack() {
     // First clear any existing patches
-    boxes = [];
-    var ctx=$('#canvas')[0].getContext('2d'); 
-    ctx.clearRect(0, 0, 416, 416);
-    socket.emit('fix_patch', 0);
-    $('#patch').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQYV2P4DwABAQEAWk1v8QAAAABJRU5ErkJggg==");
-
-    // Activate fixed area attack
-    socket.emit('activate_fixed_area', 1);
+    clear_patch();
+    
+    // Wait for the clear to complete before activating the fixed area
+    socket.once('patch_cleared', function() {
+        socket.emit('activate_fixed_area', 1);
+    });
 };
 
 
