@@ -2,8 +2,8 @@ make sure models are added in models folder
 
 conda env create -f environment_gpu.yml
 
-cd ../../users/kanek/adv-detect
-conda activate adv_gpu
+cd ../../users/kanek/adv-detect-yolov5
+conda activate adv_gpu_yolov5
 python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt
 
 python detect.py --model model/yolov3-tiny.h5 --class_name coco_classes.txt --attack multi_untargeted --max_iter 200 --fixed_area 100,100,240,200 
